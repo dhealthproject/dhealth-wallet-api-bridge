@@ -2,7 +2,7 @@
   "name": "@yourdlt/wallet-api-bridge",
   "description": "YourDLT Wallet API Bridge: Programmatical API for Plugins Development",
   "homepage": "https://github.com/UsingBlockchain/yourdlt-wallet-api-bridge",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": {
     "name": "Using Blockchain Ltd",
     "email": "info@ubc.digital",

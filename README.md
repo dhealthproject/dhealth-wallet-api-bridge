@@ -20,7 +20,9 @@ Following modules are defined and exported with this library:
 
 | Class | Description |
 | --- | --- |
-| `AppRoute` | Class that describes an application *route* using `vue-router`. This class also adds meta data fields to routes. |
+| `AppRoute` | Interface that describes an application *route* using `vue-router`. This class also adds meta data fields to routes. |
+| `RouteMeta` | Interface that describes meta data related to application routes. |
+| `$pluginBus` | Vue instance use to channel plugin communication from- and to the software application. |
 
 ## Sponsor us
 
