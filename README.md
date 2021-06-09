@@ -43,7 +43,7 @@ Following modules are defined and exported with this library:
 
 Copyright 2021-present [Using Blockchain Ltd][ref-ltd], All rights reserved.
 
-Licensed under the [AGPL v3.0](LICENSE)
+Licensed under the [LGPL v3.0](LICENSE)
 
 [ref-ltd]: https://using-blockchain.org
 [parent-url]: https://github.com/UsingBlockchain/yourdlt-wallet

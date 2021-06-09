@@ -28,6 +28,7 @@ module.exports = {
     '@typescript-eslint/interface-name-prefix': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-inferrable-types': 'off',
+    '@typescript-eslint/no-namespace': 'off',
     curly: 2,
     'no-extra-boolean-cast': 0,
     //'vue/no-v-html': 'off',

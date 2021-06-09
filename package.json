@@ -2,7 +2,7 @@
   "name": "@yourdlt/wallet-api-bridge",
   "description": "YourDLT Wallet API Bridge: Programmatical API for Plugins Development",
   "homepage": "https://github.com/UsingBlockchain/yourdlt-wallet-api-bridge",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": {
     "name": "Using Blockchain Ltd",
     "email": "info@ubc.digital",
@@ -12,7 +12,7 @@
     "type": "git",
     "url": "https://github.com/UsingBlockchain/yourdlt-wallet-api-bridge.git"
   },
-  "license": "AGPL-3.0",
+  "license": "LGPL-3.0-only",
   "main": "dist/YourDLTWalletAPIBridge.common.js",
   "files": [
     "dist/*",
@@ -24,14 +24,15 @@
     "test:unit": "vue-cli-service test:unit",
     "lint": "npm run prettier && npm run eslint",
     "lint:fix": "npm run prettier:fix && npm run eslint:fix",
-    "eslint": "eslint src/ --ext .ts && eslint src/ --ext .vue",
-    "eslint:fix": "eslint src/ --ext .ts --fix && eslint src/ --ext .vue --fix",
+    "eslint": "eslint src/ --ext .ts",
+    "eslint:fix": "eslint src/ --ext .ts --fix",
     "prettier": "prettier --check ./src",
     "prettier:fix": "prettier --write ./src"
   },
   "dependencies": {
     "vue": "^2.6.10",
-    "vue-router": "^3.5.1"
+    "vue-router": "^3.5.1",
+    "js-sha3": "^0.8.0"
   },
   "devDependencies": {
     "@babel/compat-data": "^7.14.0",
