@@ -5,7 +5,7 @@
 
 [![npm-badge][npm-badge]][npm-url]
 [![dl-badge][dl-badge]][npm-url]
-[![License](https://img.shields.io/badge/License-AGPL%203.0-blue.svg)](https://opensource.org/licenses/AGPL-3.0)
+[![License](https://img.shields.io/badge/License-LGPL%203.0%20only-blue.svg)](https://opensource.org/licenses/LGPL-3.0)
 
 YourDLT Wallet API Bridge is a Typescript SDK/API to permit the development of *plugins* for [YourDLT Wallet][parent-url]. This bridge exports important classes such as `AppRoute` and is also used internally by the software itself.
 
@@ -22,7 +22,7 @@ Following modules are defined and exported with this library:
 | --- | --- |
 | `AppRoute` | Interface that describes an application *route* using `vue-router`. This class also adds meta data fields to routes. |
 | `RouteMeta` | Interface that describes meta data related to application routes. |
-| `$pluginBus` | Vue instance use to channel plugin communication from- and to the software application. |
+| `PluginBridge` | Namespace that describes the necessary types for bridging processes between your component(s) and the wallet. This namespace includes type definitions for `PluginSetting`, `PluginPermission`, `PluginStorage` and for `Component`s definitions. |
 
 ## Sponsor us
 
@@ -32,6 +32,8 @@ Following modules are defined and exported with this library:
 | Patreon | [https://patreon.com/usingblockchainltd](https://patreon.com/usingblockchainltd) |
 | Github | [https://github.com/sponsors/UsingBlockchain](https://github.com/sponsors/UsingBlockchain) |
 | :coffee: :coffee: :coffee: | [https://www.buymeacoffee.com/UBCDigital](https://www.buymeacoffee.com/UBCDigital) |
+
+This project is sponsored by [UBC Digital Magazine][mag-url].
 
 ## Disclaimer
 
@@ -46,6 +48,7 @@ Copyright 2021-present [Using Blockchain Ltd][ref-ltd], All rights reserved.
 Licensed under the [LGPL v3.0](LICENSE)
 
 [ref-ltd]: https://using-blockchain.org
+[mag-url]: https://ubc.digital
 [parent-url]: https://github.com/UsingBlockchain/yourdlt-wallet
 [npm-url]: https://www.npmjs.com/package/@yourdlt/wallet-api-bridge
 [npm-badge]: https://img.shields.io/npm/v/@yourdlt/wallet-api-bridge

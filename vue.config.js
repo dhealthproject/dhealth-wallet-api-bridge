@@ -4,7 +4,7 @@
  *
  * @package     YourDLT Wallet API Bridge
  * @author      Grégory Saive for Using Blockchain Ltd <greg@ubc.digital>
- * @license     AGPL-3.0
+ * @license     LGPL-3.0
  */
  module.exports = {
   css: { extract: false },
