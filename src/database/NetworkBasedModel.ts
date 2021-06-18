@@ -6,7 +6,7 @@
  * @author      Grégory Saive for Using Blockchain Ltd <greg@ubc.digital>
  * @license     LGPL-3.0
  */
-import { NetworkBasedEntryModel } from './NetworkBasedEntryModel'
+import { NetworkBasedEntryModel } from "./NetworkBasedEntryModel";
 
 /**
  * A model that store some generic value based on the generation hash.
