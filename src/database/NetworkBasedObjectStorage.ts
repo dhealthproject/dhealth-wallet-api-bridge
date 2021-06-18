@@ -6,7 +6,8 @@
  * @author      Grégory Saive for Using Blockchain Ltd <greg@ubc.digital>
  * @license     LGPL-3.0
  */
-import { NetworkBasedEntryModel, NetworkBasedModel } from "./NetworkBasedModel";
+import { NetworkBasedModel } from "./NetworkBasedModel";
+import { NetworkBasedEntryModel } from "./NetworkBasedEntryModel";
 import { IStorage } from "./IStorage";
 
 /**

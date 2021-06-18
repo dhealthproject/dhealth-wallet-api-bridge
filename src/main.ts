@@ -30,7 +30,7 @@ export { ObjectStorageBackend } from "./database/ObjectStorageBackend";
 export { NetworkBasedModel } from "./database/NetworkBasedModel";
 export { VersionedModel } from "./database/VersionedModel";
 
-// storages
+// storages (tables)
 export { NetworkBasedObjectStorage } from "./database/NetworkBasedObjectStorage";
 export { SimpleObjectStorage } from "./database/SimpleObjectStorage";
 export { VersionedObjectStorage } from "./database/VersionedObjectStorage";

@@ -2,7 +2,7 @@
   "name": "@yourdlt/wallet-api-bridge",
   "description": "YourDLT Wallet API Bridge: Programmatical API for Plugins Development",
   "homepage": "https://github.com/UsingBlockchain/yourdlt-wallet-api-bridge#readme",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "author": {
     "name": "Using Blockchain Ltd",
     "email": "info@ubc.digital",
@@ -20,7 +20,8 @@
   ],
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build --target lib --name YourDLTWalletAPIBridge src/main.ts",
+    "build": "npm run build:lib",
+    "build:lib": "vue-cli-service build --target lib --name YourDLTWalletAPIBridge src/main.ts",
     "test:unit": "vue-cli-service test:unit",
     "lint": "npm run prettier && npm run eslint",
     "lint:fix": "npm run prettier:fix && npm run eslint:fix",

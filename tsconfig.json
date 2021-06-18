@@ -33,8 +33,8 @@
       "scripthost"
     ]
   },
-  "files": [
-    "src/main.ts"
+  "include": [
+    "src/**/*.ts"
   ],
   "exclude": [
     "node_modules"

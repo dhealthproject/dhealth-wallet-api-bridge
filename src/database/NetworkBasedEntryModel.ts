@@ -6,9 +6,11 @@
  * @author      Grégory Saive for Using Blockchain Ltd <greg@ubc.digital>
  * @license     LGPL-3.0
  */
-import { NetworkBasedEntryModel } from './NetworkBasedEntryModel'
+export class NetworkBasedEntryModel<E> {
+  public readonly timestamp = Date.now();
 
-/**
- * A model that store some generic value based on the generation hash.
- */
-export type NetworkBasedModel<E> = Record<string, NetworkBasedEntryModel<E>>;
+  constructor(
+    public readonly generationHash: string,
+    public readonly data: E
+  ) {}
+}
