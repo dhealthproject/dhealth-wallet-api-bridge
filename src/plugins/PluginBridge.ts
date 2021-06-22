@@ -151,34 +151,46 @@ export namespace PluginBridge {
   export const StoreActionRequest = (
     target: string,
     args: any = undefined,
-    $store: any = undefined,
+    $store: any = undefined
   ): any => {
     // explicit store prevails
-    if (!!$store && 'dispatch' in $store) {
+    if (!!$store && "dispatch" in $store) {
       return $store.dispatch(target, args);
     }
     // IPC synchronous communication
-    else if (!! window && 'electron' in window) {
+    else if (!!window && "electron" in window) {
       // Plugin to App
-      window['electron']['ipcRenderer'].send('onPluginActionRequest', JSON.stringify({
-        action: target,
-        args: args
-      }));
+      window["electron"]["ipcRenderer"].send(
+        "onPluginActionRequest",
+        JSON.stringify({
+          action: target,
+          args: args,
+        })
+      );
 
       // App to Plugin
       return new Promise((resolve, reject) => {
-        window['electron']['ipcRenderer'].on('onPluginActionResponse', (event, data) => {
-          console.log(`[INFO][PluginBridge.ts] received onPluginActionResponse with ${data} from renderer process`);
-          resolve(JSON.parse(!!data && data.length ? data : '{}'));
-        });
+        window["electron"]["ipcRenderer"].on(
+          "onPluginActionResponse",
+          (event, data) => {
+            console.log(
+              `[INFO][PluginBridge.ts] received onPluginActionResponse with ${data} from renderer process`
+            );
+            resolve(JSON.parse(!!data && data.length ? data : "{}"));
+          }
+        );
 
-        setTimeout(() => reject(
-          `PluginBridge is unable to provide a response for action '${target}'. Listener timed out (5 seconds)`
-        ), 5000);
+        setTimeout(
+          () =>
+            reject(
+              `PluginBridge is unable to provide a response for action '${target}'. Listener timed out (5 seconds)`
+            ),
+          5000
+        );
       });
     }
 
     // Unable to dispatch action
-    throw new Error(`PluginBridge is unable to dispatch action '${target}'`)
-  }
+    throw new Error(`PluginBridge is unable to dispatch action '${target}'`);
+  };
 }
