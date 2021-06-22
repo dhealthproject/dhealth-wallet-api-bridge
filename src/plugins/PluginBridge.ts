@@ -135,4 +135,37 @@ export namespace PluginBridge {
     model: any;
     description: string;
   };
+
+  /**
+   * @function {StoreActionRequest()}
+   * @description This function tries to dispatch a Vuex Store action
+   * \a target using \a $store if provided and using the IPC renderer
+   * otherwise by sending an `onPluginActionRequest` event.
+   *
+   * @param   {string}      target    The Vuex store namespaced action name.
+   * @param   {any}         args      (Optional) The action arguments.
+   * @param   {Vuex.Store}  $store    (Optional) The Vuex store instance.
+   * @returns {any}                   The resulting store action response.
+   * @throws  {Error} On undefined store instance.
+   */
+  export const StoreActionRequest = (
+    target: string,
+    args: any = undefined,
+    $store: any = undefined,
+  ): any => {
+    // explicit store prevails
+    if (!!$store && 'dispatch' in $store) {
+      return $store.dispatch(target, args);
+    }
+    // IPC synchronous communication
+    else if (!! window && 'electron' in window) {
+      return window['electron']['ipcRenderer'].sendSync('onPluginActionRequest', {
+        action: target,
+        args: args
+      });
+    }
+
+    // Unable to dispatch action
+    throw new Error(`PluginBridge is unable to dispatch action '${target}'`)
+  }
 }
