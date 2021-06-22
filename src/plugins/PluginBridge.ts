@@ -159,9 +159,22 @@ export namespace PluginBridge {
     }
     // IPC synchronous communication
     else if (!! window && 'electron' in window) {
-      return window['electron']['ipcRenderer'].sendSync('onPluginActionRequest', {
+      // Plugin to App
+      window['electron']['ipcRenderer'].send('onPluginActionRequest', JSON.stringify({
         action: target,
         args: args
+      }));
+
+      // App to Plugin
+      return new Promise((resolve, reject) => {
+        window['electron']['ipcRenderer'].on('onPluginActionResponse', (event, data) => {
+          console.log(`[INFO][PluginBridge.ts] received onPluginActionResponse with ${data} from renderer process`);
+          resolve(JSON.parse(!!data && data.length ? data : '{}'));
+        });
+
+        setTimeout(() => reject(
+          `PluginBridge is unable to provide a response for action '${target}'. Listener timed out (5 seconds)`
+        ), 5000);
       });
     }
 
