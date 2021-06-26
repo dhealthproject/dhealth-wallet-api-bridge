@@ -40,3 +40,8 @@ export { VersionedNetworkBasedObjectStorage } from "./database/VersionedNetworkB
 /// region blockchain adapter(s)
 export { Transaction } from "./chain/Transaction";
 /// end-region blockchain adapter(s)
+
+/// region global helpers
+export { Filters } from "./utilities/Filters";
+export * as Utilities from "./utilities/Utilities";
+/// end-region global helpers
