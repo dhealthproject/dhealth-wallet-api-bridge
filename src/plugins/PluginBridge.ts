@@ -149,26 +149,41 @@ export namespace PluginBridge {
    * @throws  {Error} On undefined store instance.
    */
   export const StoreActionRequest = (
+    type: PluginPermissionType,
     target: string,
     args: any = undefined,
     $store: any = undefined
   ): any => {
     // explicit store prevails
-    if (!!$store && "dispatch" in $store) {
-      return $store.dispatch(target, args);
+    if (!!$store && "dispatch" in $store && "getters" in $store) {
+      if (type === PluginPermissionType.Getter) {
+        return $store.getters[target];
+      } else if (type === PluginPermissionType.Action) {
+        return $store.dispatch(target, args);
+      } else if (type === PluginPermissionType.Mutation) {
+        return $store.commit(target, args);
+      }
+
+      throw new Error(
+        `PluginBridge is unable to handle ${type.toString()} requests.`
+      );
     }
     // IPC synchronous communication
     else if (!!window && "electron" in window) {
-      // Plugin to App
+      // Plugin to App communication (REQUEST)
       window["electron"]["ipcRenderer"].send(
         "onPluginActionRequest",
         JSON.stringify({
+          type,
           action: target,
           args: args,
         })
       );
 
-      // App to Plugin
+      // used as a marker to cancel timeout
+      let resolved = undefined;
+
+      // App to Plugin communication (RESPONSE)
       return new Promise((resolve, reject) => {
         window["electron"]["ipcRenderer"].on(
           "onPluginActionResponse",
@@ -176,17 +191,21 @@ export namespace PluginBridge {
             console.log(
               `[INFO][PluginBridge.ts] received onPluginActionResponse with ${data} from renderer process`
             );
+            resolved = true;
             resolve(JSON.parse(!!data && data.length ? data : "{}"));
           }
         );
 
-        setTimeout(
-          () =>
-            reject(
-              `PluginBridge is unable to provide a response for action '${target}'. Listener timed out (5 seconds)`
-            ),
-          5000
-        );
+        // registers a timeout handler after 10 seconds
+        setTimeout(() => {
+          if (!!resolved) {
+            return true;
+          }
+
+          return reject(
+            `PluginBridge is unable to provide a response for action '${target}'. Listener timed out (10 seconds)`
+          );
+        }, 10000);
       });
     }
 
