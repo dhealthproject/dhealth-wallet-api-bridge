@@ -36,3 +36,7 @@ export { SimpleObjectStorage } from "./database/SimpleObjectStorage";
 export { VersionedObjectStorage } from "./database/VersionedObjectStorage";
 export { VersionedNetworkBasedObjectStorage } from "./database/VersionedNetworkBasedObjectStorage";
 /// end-region database
+
+/// region blockchain adapter(s)
+export { Transaction } from "./chain/Transaction";
+/// end-region blockchain adapter(s)
