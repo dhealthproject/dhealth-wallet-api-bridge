@@ -170,21 +170,11 @@ export namespace PluginBridge {
     }
     // IPC synchronous communication
     else if (!!window && "electron" in window) {
-      // Plugin to App communication (REQUEST)
-      window["electron"]["ipcRenderer"].send(
-        "onPluginActionRequest",
-        JSON.stringify({
-          type,
-          action: target,
-          args: args,
-        })
-      );
-
-      // used as a marker to cancel timeout
-      let resolved = undefined;
-
-      // App to Plugin communication (RESPONSE)
       return new Promise((resolve, reject) => {
+        // used as a marker to cancel timeout
+        let resolved = undefined;
+
+        // Listen for App to Plugin communication (RESPONSE)
         window["electron"]["ipcRenderer"].on(
           "onPluginActionResponse",
           (event, data) => {
@@ -194,6 +184,16 @@ export namespace PluginBridge {
             resolved = true;
             resolve(JSON.parse(!!data && data.length ? data : "{}"));
           }
+        );
+
+        // Trigger Plugin to App communication (REQUEST)
+        window["electron"]["ipcRenderer"].send(
+          "onPluginActionRequest",
+          JSON.stringify({
+            type,
+            action: target,
+            args: args,
+          })
         );
 
         // registers a timeout handler after 10 seconds
