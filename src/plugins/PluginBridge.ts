@@ -149,12 +149,13 @@ export namespace PluginBridge {
    * @throws  {Error} On undefined store instance.
    */
   export const StoreActionRequest = (
+    plugin: string,
     type: PluginPermissionType,
     target: string,
     args: any = undefined,
     $store: any = undefined
   ): any => {
-    // explicit store prevails
+    // explicit store prevails (using potential "in-plugin" vuex store)
     if (!!$store && "dispatch" in $store && "getters" in $store) {
       if (type === PluginPermissionType.Getter) {
         return $store.getters[target];
@@ -190,6 +191,7 @@ export namespace PluginBridge {
         window["electron"]["ipcRenderer"].send(
           "onPluginActionRequest",
           JSON.stringify({
+            plugin,
             type,
             action: target,
             args: args,
