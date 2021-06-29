@@ -132,6 +132,7 @@ export namespace PluginBridge {
    */
   export type PluginStorage = {
     storageKey: string;
+    primaryKey: string;
     model: any;
     description: string;
   };
