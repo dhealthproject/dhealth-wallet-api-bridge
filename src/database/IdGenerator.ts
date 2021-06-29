@@ -20,7 +20,7 @@ import { randomBytes, utf8ToHex } from "../utilities/Utilities";
  */
 export const RandomIdGenerator = (length: number = 8): string => {
   const id = randomBytes(length);
-  return utf8ToHex(id).substr(0, length);
+  return sha3_512(utf8ToHex(id)).substr(0, length);
 };
 
 /**
