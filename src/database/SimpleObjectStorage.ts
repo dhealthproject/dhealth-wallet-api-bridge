@@ -6,8 +6,9 @@
  * @author      Grégory Saive for Using Blockchain Ltd <greg@ubc.digital>
  * @license     LGPL-3.0
  */
-// internal dependencies
 import { sha3_512 } from "js-sha3";
+
+// internal dependencies
 import { IStorageBackend } from "./IStorageBackend";
 import { LocalStorageBackend } from "./LocalStorageBackend";
 import { ObjectStorageBackend } from "./ObjectStorageBackend";

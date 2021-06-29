@@ -17,6 +17,12 @@ export { PluginBridge } from "./plugins/PluginBridge";
 /// end-region plugins
 
 /// region database
+// functions
+export {
+  RandomIdGenerator,
+  DeterministicIdGenerator,
+} from "./database/IdGenerator";
+
 // interfaces
 export { INetworkBasedStorage } from "./database/INetworkBasedStorage";
 export { IStorage } from "./database/IStorage";
