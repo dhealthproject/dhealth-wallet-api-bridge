@@ -176,7 +176,7 @@ export namespace PluginBridge {
         let resolved = undefined;
 
         // Listen for App to Plugin communication (RESPONSE)
-        window["electron"]["ipcRenderer"].on(
+        window["electron"]["ipcRenderer"].once(
           "onPluginActionResponse",
           (event, data) => {
             console.log(
