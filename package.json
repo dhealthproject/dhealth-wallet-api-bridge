@@ -1,20 +1,20 @@
 {
-  "name": "@yourdlt/wallet-api-bridge",
-  "description": "YourDLT Wallet API Bridge: Programmatical API for Plugins Development",
-  "homepage": "https://github.com/UsingBlockchain/yourdlt-wallet-api-bridge#readme",
-  "version": "0.2.1",
+  "name": "@dhealth/wallet-api-bridge",
+  "description": "dHealth Wallet API Bridge: Programmatical API for Plugins Development",
+  "homepage": "https://github.com/dhealthproject/dhealth-wallet-api-bridge#readme",
+  "version": "1.1.1",
   "author": {
-    "name": "Using Blockchain Ltd",
-    "email": "info@ubc.digital",
-    "url": "https://using-blockchain.org"
+    "name": "dHealth Network",
+    "email": "greg@dhealth.foundation",
+    "url": "https://dhealth.network"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/UsingBlockchain/yourdlt-wallet-api-bridge.git"
+    "url": "https://github.com/dhealthproject/dhealth-wallet-api-bridge.git"
   },
   "license": "LGPL-3.0-only",
-  "main": "dist/@yourdlt/wallet-api-bridge.umd.js",
-  "types": "dist/@yourdlt/src/main.d.ts",
+  "main": "dist/@dhealth/wallet-api-bridge.umd.js",
+  "types": "dist/@dhealth/src/main.d.ts",
   "files": [
     "dist/*",
     "README.md",
@@ -23,7 +23,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "npm run build:lib && npm run build:ts",
-    "build:lib": "vue-cli-service build --target lib --name @yourdlt/wallet-api-bridge src/main.ts",
+    "build:lib": "vue-cli-service build --target lib --name @dhealth/wallet-api-bridge src/main.ts",
     "build:ts": "tsc --emitDeclarationOnly",
     "pretest": "npm run build",
     "test": "vue-cli-service test:unit",

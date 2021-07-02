@@ -16,7 +16,7 @@
     "sourceMap": true,
     "noImplicitAny": false,
     "declaration": true,
-    "declarationDir": "./dist/@yourdlt",
+    "declarationDir": "./dist/@dhealth",
     "removeComments": false,
     "baseUrl": ".",
     "outDir": "./dist/",
