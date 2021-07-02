@@ -1,19 +1,19 @@
 {
-  "name": "@yourdlt/wallet-api-bridge",
-  "description": "YourDLT Wallet API Bridge: Programmatical API for Plugins Development",
-  "homepage": "https://github.com/UsingBlockchain/yourdlt-wallet-api-bridge#readme",
-  "version": "0.1.18",
+  "name": "@dhealth/wallet-api-bridge",
+  "description": "dHealth Wallet API Bridge: Programmatical API for Plugins Development",
+  "homepage": "https://github.com/dhealthproject/dhealth-wallet-api-bridge#readme",
+  "version": "1.0.0",
   "author": {
-    "name": "Using Blockchain Ltd",
-    "email": "info@ubc.digital",
-    "url": "https://using-blockchain.org"
+    "name": "dHealth Network",
+    "email": "greg@dhealth.foundation",
+    "url": "https://dhealth.network"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/UsingBlockchain/yourdlt-wallet-api-bridge.git"
+    "url": "https://github.com/dhealthproject/dhealth-wallet-api-bridge.git"
   },
   "license": "LGPL-3.0-only",
-  "main": "dist/YourDLTWalletAPIBridge.common.js",
+  "main": "dist/dHealthWalletAPIBridge.common.js",
   "files": [
     "dist/*",
     "README.md"
@@ -21,7 +21,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "npm run build:lib",
-    "build:lib": "vue-cli-service build --target lib --name YourDLTWalletAPIBridge src/main.ts",
+    "build:lib": "vue-cli-service build --target lib --name dHealthWalletAPIBridge src/main.ts",
     "test:unit": "vue-cli-service test:unit",
     "lint": "npm run prettier && npm run eslint",
     "lint:fix": "npm run prettier:fix && npm run eslint:fix",
