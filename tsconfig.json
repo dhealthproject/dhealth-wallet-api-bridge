@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es6",
+    "target": "esnext",
     "module": "esnext",
     "strict": false,
     "jsx": "react",
@@ -15,11 +15,15 @@
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "noImplicitAny": false,
+    "declaration": true,
+    "declarationDir": "./dist/@yourdlt",
+    "removeComments": false,
     "baseUrl": ".",
-    "outDir": "./lib/",
+    "outDir": "./dist/",
     "types": [
       "webpack-env",
-      "jest"
+      "jest",
+      "node"
     ],
     "paths": {
       "@/*": [
@@ -34,7 +38,10 @@
     ]
   },
   "include": [
-    "src/**/*.ts"
+    "src/**/*.ts",
+    "test/**/*.ts",
+    "node_modules/@types/node/globals.d.ts",
+    "node_modules/@types/node/globals.d.ts"
   ],
   "exclude": [
     "node_modules"

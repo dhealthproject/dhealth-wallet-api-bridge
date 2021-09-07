@@ -11,6 +11,11 @@ import { PluginBridge as Bridge } from "./PluginBridge";
 
 export interface Plugin {
   /**
+   * @description The entry point or main view component.
+   */
+  view: string;
+
+  /**
    * @description The list of routes added by this plugin.
    */
   routes: AppRoute[];

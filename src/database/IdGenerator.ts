@@ -12,13 +12,18 @@ import { sha3_512 } from "js-sha3";
 import { randomBytes, utf8ToHex } from "../utilities/Utilities";
 
 /**
+ * @var {number}
+ */
+export const DEFAULT_ID_LENGTH: number = 8;
+
+/**
  * This function generates a random identifier, by default using
  * a length of 8 characters in hexadecimal format.
  *
  * @param   {number}  length
  * @returns {string}
  */
-export const RandomIdGenerator = (length: number = 8): string => {
+export const RandomIdGenerator = (length: number = DEFAULT_ID_LENGTH): string => {
   const id = randomBytes(length);
   return sha3_512(utf8ToHex(id)).substr(0, length);
 };
@@ -29,19 +34,24 @@ export const RandomIdGenerator = (length: number = 8): string => {
  * JSON representation with SHA3-512 resulting in a 64-bytes hash.
  *
  * @param   {any}   object
+ * @param   {string}   iv
  * @returns {string}
  */
-export const DeterministicIdGenerator = (object: any): string => {
+export const DeterministicIdGenerator = (
+  object: any,
+  iv?: string,
+): { seed: string, identifier: string } => {
+  const seed = !!iv ? iv : randomBytes(8);
   const raw = {
-    ...{
-      time: new Date().valueOf(),
-      seed: randomBytes(8),
-    },
+    seed,
     ...(object || {}),
   };
 
   const json = JSON.stringify(raw);
 
   // hash hexadecimal format
-  return sha3_512(utf8ToHex(json));
+  return {
+    seed,
+    identifier: sha3_512(utf8ToHex(json)),
+  };
 };

@@ -175,16 +175,24 @@ export namespace PluginBridge {
         // used as a marker to cancel timeout
         let resolved = undefined;
 
+        // Callback handler for response resolver
+        let onResponseResolver = (event, data) => {
+          // console.log(
+          //   `[DEBUG][PluginBridge.ts] received onPluginActionResponse with ${data} from renderer process`
+          // );
+          window["electron"]["ipcRenderer"].removeListener(
+            "onPluginActionResponse",
+            onResponseResolver,
+          );
+
+          resolved = true;
+          resolve(JSON.parse(!!data && data.length ? data : "{}"));
+        };
+
         // Listen for App to Plugin communication (RESPONSE)
         window["electron"]["ipcRenderer"].once(
           "onPluginActionResponse",
-          (event, data) => {
-            console.log(
-              `[INFO][PluginBridge.ts] received onPluginActionResponse with ${data} from renderer process`
-            );
-            resolved = true;
-            resolve(JSON.parse(!!data && data.length ? data : "{}"));
-          }
+          onResponseResolver
         );
 
         // Trigger Plugin to App communication (REQUEST)
