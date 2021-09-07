@@ -62,7 +62,7 @@ export namespace PluginBridge {
    * authors as formatted inside `package.json` files.
    */
   export type PackageAuthor = {
-    name: string;
+    name?: string;
     email?: string;
     url?: string;
   };
@@ -74,8 +74,8 @@ export namespace PluginBridge {
    * files.
    */
   export type PackageRepository = {
-    type: string;
-    url: string;
+    type?: string;
+    url?: string;
   };
 
   /**
