@@ -142,9 +142,11 @@ export namespace PluginBridge {
    * \a target using \a $store if provided and using the IPC renderer
    * otherwise by sending an `onPluginActionRequest` event.
    *
-   * @param   {string}      target    The Vuex store namespaced action name.
-   * @param   {any}         args      (Optional) The action arguments.
-   * @param   {Vuex.Store}  $store    (Optional) The Vuex store instance.
+   * @param   {string}                plugin    The plugin npm module (identifier).
+   * @param   {PluginPermissionType}  type      The type of store routine (getter, action, mutation).
+   * @param   {string}                target    The Vuex store namespaced action name.
+   * @param   {any}                   args      (Optional) The action arguments.
+   * @param   {Vuex.Store}            $store    (Optional) The Vuex store instance.
    * @returns {any}                   The resulting store action response.
    * @throws  {Error} On undefined store instance.
    */
@@ -222,4 +224,52 @@ export namespace PluginBridge {
     // Unable to dispatch action
     throw new Error(`PluginBridge is unable to dispatch action '${target}'`);
   };
+
+  /**
+   * @function {AccountRequest()}
+   * @description This function catches a onPluginAccountResponse event
+   * that is thrown inside the software when a new account was created
+   * successfully.
+   *
+   * @returns {any}         An object that contains the created account public key (e.g: `{publicKey: '...'}`).
+   * @throws  {Error}       On undefined electron instance.
+   */
+  export const AccountRequest = (): any => {
+    if (!window || !("electron" in window)) {
+      throw new Error(`PluginBridge is unable to communicate with the Wallet.`);
+    }
+
+    return new Promise((resolve, reject) => {
+      // uses as a marker to cancel timeout
+      let resolved = undefined;
+
+      // Callback handler for response resolver
+      let onResponseResolver = (event, data) => {
+        window["electron"]["ipcRenderer"].removeListener(
+          "onPluginAccountResponse",
+          onResponseResolver,
+        );
+
+        resolved = true;
+        resolve(JSON.parse(!!data && data.length ? data : "{}"));
+      };
+
+      // Listen for App to Plugin communication (RESPONSE)
+      window["electron"]["ipcRenderer"].once(
+        "onPluginAccountResponse",
+        onResponseResolver
+      );
+
+      // registers a timeout handler after 10 seconds
+      setTimeout(() => {
+        if (!!resolved) {
+          return true;
+        }
+
+        return reject(
+          `PluginBridge is unable to provide a response for the account request. Listener timed out (30 seconds)`
+        );
+      }, 30000);
+    });
+  }
 }

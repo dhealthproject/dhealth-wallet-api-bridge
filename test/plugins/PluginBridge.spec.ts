@@ -71,13 +71,15 @@ describe('plugins/PluginBridge --->', () => {
     });
 
     describe('StoreActionRequest() using electron.ipcRenderer', () => {
-        // mock electron ipcRenderer
-        window['electron'] = {
-            ipcRenderer: {
-                once: jest.fn(),
-                send: jest.fn(),
-            }
-        };
+        beforeEach(() => {
+            // mock electron ipcRenderer
+            window['electron'] = {
+                ipcRenderer: {
+                    once: jest.fn(),
+                    send: jest.fn(),
+                }
+            };
+        });
 
         it('should use ipcRenderer instance given no Vuex Store', () => {
             const request = PluginBridge.StoreActionRequest(
@@ -94,6 +96,22 @@ describe('plugins/PluginBridge --->', () => {
                 action: 'testKey',
                 args: undefined
             }));
+        });
+    });
+
+    describe('AccountRequest()', () => {
+        beforeEach(() => {
+            // mock electron ipcRenderer
+            window['electron'] = {
+                ipcRenderer: {
+                    once: jest.fn(),
+                }
+            };
+        });
+
+        it('should use ipcRenderer instance', () => {
+            const request = PluginBridge.AccountRequest();
+            expect(window['electron']['ipcRenderer'].once).toHaveBeenCalledTimes(1);
         });
     });
 });

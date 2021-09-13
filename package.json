@@ -2,7 +2,7 @@
   "name": "@dhealth/wallet-api-bridge",
   "description": "dHealth Wallet API Bridge: Programmatical API for Plugins Development",
   "homepage": "https://github.com/dhealthproject/dhealth-wallet-api-bridge#readme",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "author": {
     "name": "dHealth Network",
     "email": "greg@dhealth.foundation",
