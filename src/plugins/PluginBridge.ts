@@ -245,6 +245,8 @@ export namespace PluginBridge {
 
       // Callback handler for response resolver
       let onResponseResolver = (event, data) => {
+        console.log(`[DEBUG][PluginBridge.ts] Caught onPluginAccountResponse with data: ${data}`);
+
         window["electron"]["ipcRenderer"].removeListener(
           "onPluginAccountResponse",
           onResponseResolver,
@@ -267,9 +269,9 @@ export namespace PluginBridge {
         }
 
         return reject(
-          `PluginBridge is unable to provide a response for the account request. Listener timed out (30 seconds)`
+          `PluginBridge is unable to provide a response for the account request. Listener timed out (120 seconds)`
         );
-      }, 30000);
+      }, 120000);
     });
   }
 }
