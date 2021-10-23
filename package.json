@@ -2,7 +2,7 @@
   "name": "@dhealth/wallet-api-bridge",
   "description": "dHealth Wallet API Bridge: Programmatical API for Plugins Development",
   "homepage": "https://github.com/dhealthproject/dhealth-wallet-api-bridge#readme",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "author": {
     "name": "dHealth Network",
     "email": "greg@dhealth.foundation",
@@ -35,9 +35,10 @@
     "prettier:fix": "prettier --write ./src"
   },
   "dependencies": {
+    "axios": "^0.22.0",
+    "js-sha3": "^0.8.0",
     "vue": "^2.6.10",
     "vue-router": "^3.5.1",
-    "js-sha3": "^0.8.0",
     "vuex": "^3.6.2"
   },
   "devDependencies": {

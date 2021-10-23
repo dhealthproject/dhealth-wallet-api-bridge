@@ -22,6 +22,7 @@ Following modules are defined and exported with this library:
 | `RouteMeta` | Interface that describes meta data related to application routes. |
 | `PluginBridge` | Namespace that describes the necessary types for bridging processes between your component(s) and the wallet. This namespace includes type definitions for `PluginSetting`, `PluginPermission`, `PluginStorage` and for `Component`s definitions. |
 | `Transaction` | Enumeration that contains all Symbol transaction types (shim for SDK). |
+| `ChainService` | Repository implementation for HTTP calls to /node/ API routes. |
 
 ## License
 

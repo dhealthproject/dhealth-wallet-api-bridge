@@ -1,10 +1,10 @@
 /**
- * This file is part of YourDLT Wallet API Bridge shared under LGPL-3.0
+ * This file is part of dHealth Wallet API Bridge shared under LGPL-3.0
  * Copyright (C) 2021 Using Blockchain Ltd, Reg No.: 12658136, United Kingdom
  *
- * @package     YourDLT Wallet API Bridge
+ * @package     dHealth Wallet API Bridge
  * @author      Grégory Saive for Using Blockchain Ltd <greg@ubc.digital>
- * @license     AGPL-3.0
+ * @license     LGPL-3.0
  */
 export class Filters {
   /**
@@ -14,7 +14,10 @@ export class Filters {
    * @param   {string}  allowed
    * @return  {string}
    */
-  public static stripTags(inputStr: string, allowed: string = "") {
+  public static stripTags(
+    inputStr: string,
+    allowed: string = "",
+  ): string {
     // making sure the allowed arg is a string containing only tags in lowercase (<a><b><c>)
     allowed = (
       ((allowed || "") + "").toLowerCase().match(/<[a-z][a-z0-9]*>/g) || []
@@ -46,5 +49,31 @@ export class Filters {
         return after;
       }
     } while (before !== after);
+  }
+
+  /**
+   * This method replaces all occurences of 
+   *
+   * @param   {string}  inputStr
+   * @param   {string}  allowed
+   * @return  {string}
+   */
+  public static replaceBy(
+    haystack: string,
+    needles: string[],
+    replace: string = '',
+  ): string {
+    let escaped = [];
+    needles.forEach(
+      n => escaped.push(n.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1"))
+    );
+    
+    let result: string = haystack;
+    while (escaped.length) {
+      const needle = escaped.shift();
+      result = result.replace(new RegExp(needle, 'g'), replace);
+    }
+
+    return result;
   }
 }
