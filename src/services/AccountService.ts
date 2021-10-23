@@ -53,7 +53,7 @@ export class AccountService extends HttpService {
    */
   public getAccountsInfo(
     nodeUrl: string,
-    accountIds: string,
+    accountIds: string[],
     idTypes: 'publicKeys' | 'addresses' = 'publicKeys',
   ): Promise<AccountModel[]> {
     const opts = {};

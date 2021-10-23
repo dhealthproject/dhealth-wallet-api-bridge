@@ -18,7 +18,34 @@ export class AccountModel {
     public readonly publicKey: string,
     public readonly importance: string,
     public readonly balances?: MosaicModel[],
+    public readonly address?: string,
+    public readonly accountType?: number,
+    public readonly remotePublicKey?: string,
+    public readonly nodePublicKey?: string,
+    public readonly vrfPublicKey?: string,
   ) {}
+
+  /**
+   * Gets the balance of a mosaic by mosaic ID.
+   *
+   * @param   {string}  mosaicId 
+   * @return  {MosaicModel}
+   */
+  public getBalanceOf(mosaicId: string): MosaicModel {
+    if (!this.balances || !this.balances.length) {
+      return new MosaicModel(mosaicId, '0');
+    }
+
+    const entry = this.balances.find(
+      b => b.mosaicId === mosaicId
+    )
+
+    if (undefined === entry) {
+      return new MosaicModel(mosaicId, '0');
+    }
+
+    return entry;
+  }
 
   /**
    * Factory to create a AccountModel instance from
@@ -35,6 +62,11 @@ export class AccountModel {
       'publicKey' in data ? data['publicKey'] : '',
       'importance' in data ? data['importance'] : '',
       mosaics.map(m => MosaicModel.fromDTO(m)),
+      undefined,
+      'accountType' in data ? data['accountType'] : '',
+      'linked' in data['supplementalPublicKeys'] ? data['supplementalPublicKeys']['linked']['publicKey'] : '',
+      'node' in data['supplementalPublicKeys'] ? data['supplementalPublicKeys']['node']['publicKey'] : '',
+      'vrf' in data['supplementalPublicKeys'] ? data['supplementalPublicKeys']['vrf']['publicKey'] : '',
     )
   }
 };

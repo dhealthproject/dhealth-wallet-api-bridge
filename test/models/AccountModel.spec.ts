@@ -32,6 +32,11 @@ describe('models/AccountModel --->', () => {
         mockDTO.account.publicKey,
         mockDTO.account.importance,
         mockDTO.account.mosaics.map(m => MosaicModel.fromDTO(m)),
+        undefined,
+        mockDTO.account.accountType,
+        mockDTO.account.supplementalPublicKeys.linked.publicKey,
+        mockDTO.account.supplementalPublicKeys.node.publicKey,
+        mockDTO.account.supplementalPublicKeys.vrf.publicKey
       );
 
       expect(acct.publicKey).toEqual(mockDTO.account.publicKey);
@@ -39,6 +44,10 @@ describe('models/AccountModel --->', () => {
       expect(acct.balances).toBeDefined();
       expect(acct.balances.length).toEqual(1);
       expect(acct.balances[0].mosaicId).toEqual(mockDTO.account.mosaics[0].id);
+      expect(acct.accountType).toEqual(mockDTO.account.accountType);
+      expect(acct.remotePublicKey).toEqual(mockDTO.account.supplementalPublicKeys.linked.publicKey);
+      expect(acct.nodePublicKey).toEqual(mockDTO.account.supplementalPublicKeys.node.publicKey);
+      expect(acct.vrfPublicKey).toEqual(mockDTO.account.supplementalPublicKeys.vrf.publicKey);
     });
   });
 
@@ -50,6 +59,28 @@ describe('models/AccountModel --->', () => {
       expect(acct.importance).toEqual(mockDTO.account.importance);
       expect(acct.balances).toBeDefined();
       expect(acct.balances.length).toEqual(1);
+      expect(acct.accountType).toEqual(mockDTO.account.accountType);
+      expect(acct.remotePublicKey).toEqual(mockDTO.account.supplementalPublicKeys.linked.publicKey);
+      expect(acct.nodePublicKey).toEqual(mockDTO.account.supplementalPublicKeys.node.publicKey);
+      expect(acct.vrfPublicKey).toEqual(mockDTO.account.supplementalPublicKeys.vrf.publicKey);
+    });
+  });
+
+  describe('getBalanceOf() ->', () => {
+    it('should return empty balance given no mosaics', () => {
+      const acct = AccountModel.fromDTO(mockDTO);
+      const balance = acct.getBalanceOf('UnsetMosaicId');
+
+      expect(balance.mosaicId).toEqual('UnsetMosaicId');
+      expect(balance.amount).toEqual('0');
+    });
+
+    it('should return correct balance given mosaics', () => {
+      const acct = AccountModel.fromDTO(mockDTO);
+      const balance = acct.getBalanceOf('39E0C49FA322A459');
+
+      expect(balance.mosaicId).toEqual('39E0C49FA322A459');
+      expect(balance.amount).toEqual(mockDTO.account.mosaics[0].amount);
     });
   });
 });

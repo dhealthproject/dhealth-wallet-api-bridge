@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file.
 
 The changelog format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## [1.2.0][1.2.0] - TBD
+## [1.2.1][1.2.1] - TBD
 
 #### Added
 
@@ -23,6 +23,6 @@ The changelog format is based on [Keep a Changelog](https://keepachangelog.com/e
 - Adds database / storage interfaces
 - Adds routing logic for app submodules
 
-[1.2.0]: https://github.com/dhealthproject/dhealth-wallet-api-bridge/compare/v1.1.2...v1.2.0
+[1.2.1]: https://github.com/dhealthproject/dhealth-wallet-api-bridge/compare/v1.1.2...v1.2.1
 [1.1.2]: https://github.com/dhealthproject/dhealth-wallet-api-bridge/releases/tag/v1.1.2
 
