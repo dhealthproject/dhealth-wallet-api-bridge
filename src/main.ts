@@ -6,63 +6,53 @@
  * @author      Grégory Saive for Using Blockchain Ltd <greg@ubc.digital>
  * @license     LGPL-3.0
  */
-/// region routes
+// routes
 export { RouteMeta } from "./router/RouteMeta";
 export { AppRoute } from "./router/AppRoute";
-/// end-region routes
 
-/// region plugins
+// plugins
 export { Plugin } from "./plugins/Plugin";
 export { PluginBridge } from "./plugins/PluginBridge";
-/// end-region plugins
 
-/// region database
-// functions
+// identifiers
 export {
   RandomIdGenerator,
   DeterministicIdGenerator,
 } from "./database/IdGenerator";
 
-// interfaces
+// storage backends
 export { INetworkBasedStorage } from "./database/INetworkBasedStorage";
 export { IStorage } from "./database/IStorage";
 export { IStorageBackend } from "./database/IStorageBackend";
-
-// backends
 export { LocalStorageBackend } from "./database/LocalStorageBackend";
 export { ObjectStorageBackend } from "./database/ObjectStorageBackend";
 
-// models
+// models/types
 export { NetworkBasedModel } from "./database/NetworkBasedModel";
 export { VersionedModel } from "./database/VersionedModel";
-export { AccountModel } from "./models/AccountModel";
-export { BlockModel } from "./models/BlockModel";
-export { ChainModel } from "./models/ChainModel";
-export { MosaicModel } from "./models/MosaicModel";
-export { NetworkIdentifier } from "./models/NetworkIdentifier";
-export { NetworkModel } from "./models/NetworkModel";
-export { NodeModel } from "./models/NodeModel";
-export { NodeType, getNodeTypesFromRoles } from "./models/NodeType";
-
-// services
-export { AccountService } from "./services/AccountService";
-export { ChainService } from "./services/ChainService";
-export { HttpService } from "./services/HttpService";
-export { NetworkService } from "./services/NetworkService";
-export { NodeService } from "./services/NodeService";
+export { NetworkIdentifier } from "./types/NetworkIdentifier";
+export { NodeType } from "./types/NodeType";
 
 // storages (tables)
 export { NetworkBasedObjectStorage } from "./database/NetworkBasedObjectStorage";
 export { SimpleObjectStorage } from "./database/SimpleObjectStorage";
 export { VersionedObjectStorage } from "./database/VersionedObjectStorage";
 export { VersionedNetworkBasedObjectStorage } from "./database/VersionedNetworkBasedObjectStorage";
-/// end-region database
 
-/// region blockchain adapter(s)
+// services
+export { AccountService } from "./services/AccountService";
+export { ChainService, NetworkInfoMixin } from "./services/ChainService";
+export { HttpService } from "./services/HttpService";
+export { NetworkService } from "./services/NetworkService";
+export { NodeService } from "./services/NodeService";
+
+// blockchain adapter(s)
 export { Transaction } from "./chain/Transaction";
-/// end-region blockchain adapter(s)
+export { getAccountAddress, getAccountBalance } from "./chain/Account";
+export { getNetworkProperty } from "./chain/Network";
+export { getMosaicName, KNOWN_MOSAICS } from "./chain/Mosaic";
+export { getNodeVersion, getNodeNetwork, getNodeTypes } from "./chain/Node";
 
-/// region global helpers
+// global helpers
 export { Filters } from "./utilities/Filters";
 export * as Utilities from "./utilities/Utilities";
-/// end-region global helpers

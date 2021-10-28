@@ -178,13 +178,13 @@ export namespace PluginBridge {
         let resolved = undefined;
 
         // Callback handler for response resolver
-        let onResponseResolver = (event, data) => {
+        const onResponseResolver = (event, data) => {
           // console.log(
           //   `[DEBUG][PluginBridge.ts] received onPluginActionResponse with ${data} from renderer process`
           // );
           window["electron"]["ipcRenderer"].removeListener(
             "onPluginActionResponse",
-            onResponseResolver,
+            onResponseResolver
           );
 
           resolved = true;
@@ -244,12 +244,14 @@ export namespace PluginBridge {
       let resolved = undefined;
 
       // Callback handler for response resolver
-      let onResponseResolver = (event, data) => {
-        console.log(`[DEBUG][PluginBridge.ts] Caught onPluginAccountResponse with data: ${data}`);
+      const onResponseResolver = (event, data) => {
+        console.log(
+          `[DEBUG][PluginBridge.ts] Caught onPluginAccountResponse with data: ${data}`
+        );
 
         window["electron"]["ipcRenderer"].removeListener(
           "onPluginAccountResponse",
-          onResponseResolver,
+          onResponseResolver
         );
 
         resolved = true;
@@ -273,5 +275,5 @@ export namespace PluginBridge {
         );
       }, 120000);
     });
-  }
+  };
 }

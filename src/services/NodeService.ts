@@ -7,14 +7,16 @@
  * @license     LGPL-3.0
  */
 // external dependencies
-const axios = require('axios').default;
+import {
+  NodeInfoDTO,
+  NodeInfoDTOFromJSON,
+} from "symbol-openapi-typescript-fetch-client";
 
 // internal dependencies
-import { HttpService } from './HttpService';
-import { NodeModel } from '../models/NodeModel';
+import { HttpService } from "./HttpService";
 
 /**
- * Node service to handle remote calls 
+ * Node service to handle remote calls
  * @export
  * @class {NodeService}
  */
@@ -28,16 +30,13 @@ export class NodeService extends HttpService {
    * node information using endpoint `/node/info`.
    *
    * @param   {string}  nodeUrl     The URL of the node.
-   * @returns {Promise<NodeModel>}  Parsed JSON response as an object.
+   * @returns {Promise<NodeInfoDTO>}  Parsed JSON response as an object.
    */
-  public getNodeInfo(
-    nodeUrl: string,
-  ): Promise<NodeModel> {
+  public getNodeInfo(nodeUrl: string): Promise<NodeInfoDTO> {
     return new Promise((resolve) => {
-      this.__callAPI('get', nodeUrl, '/node/info').then(
-        (rawPeer: any) => {
-          return resolve(NodeModel.fromDTO(rawPeer));
-        });
+      this.__callAPI("get", nodeUrl, "/node/info").then((rawPeer: any) => {
+        return resolve(NodeInfoDTOFromJSON(rawPeer));
+      });
     });
   }
 
@@ -46,16 +45,13 @@ export class NodeService extends HttpService {
    * node neighborhood using endpoint `/node/peers`.
    *
    * @param   {string}  nodeUrl       The URL of the node.
-   * @returns {Promise<NodeModel[]>}  Parsed JSON response as an object.
+   * @returns {Promise<NodeInfoDTO[]>}  Parsed JSON response as an object.
    */
-  public getNodePeers(
-    nodeUrl: string,
-  ): Promise<NodeModel[]> {
+  public getNodePeers(nodeUrl: string): Promise<NodeInfoDTO[]> {
     return new Promise((resolve) => {
-      this.__callAPI('get', nodeUrl, '/node/peers').then(
-        (rawPeers: any) => {
-          return resolve(rawPeers.map((p) => NodeModel.fromDTO(p)));
-        });
+      this.__callAPI("get", nodeUrl, "/node/peers").then((rawPeers: any) => {
+        return resolve(rawPeers.map((p) => NodeInfoDTOFromJSON(p)));
+      });
     });
   }
 
@@ -67,16 +63,15 @@ export class NodeService extends HttpService {
    * @returns {Promise<{ apiNode: boolean, db: boolean }>}  Object with api and db keys (boolean values).
    */
   public getNodeHealth(
-    nodeUrl: string,
-  ): Promise<{ apiNode: boolean, db: boolean }> {
+    nodeUrl: string
+  ): Promise<{ apiNode: boolean; db: boolean }> {
     return new Promise((resolve) => {
-      this.__callAPI('get', nodeUrl, '/node/health').then(
-        (rawStatus: any) => {
-          return resolve({
-            apiNode: rawStatus.status.apiNode === 'up',
-            db: rawStatus.status.db === 'up'
-          });
+      this.__callAPI("get", nodeUrl, "/node/health").then((rawStatus: any) => {
+        return resolve({
+          apiNode: rawStatus.status.apiNode === "up",
+          db: rawStatus.status.db === "up",
         });
+      });
     });
   }
 
@@ -87,14 +82,13 @@ export class NodeService extends HttpService {
    * @param   {string}  nodeUrl       The URL of the node.
    * @returns {Promise<string[]>}  Object with api and db keys (boolean values).
    */
-  public getHarvesters(
-    nodeUrl: string,
-  ): Promise<string[]> {
+  public getHarvesters(nodeUrl: string): Promise<string[]> {
     return new Promise((resolve) => {
-      this.__callAPI('get', nodeUrl, '/node/unlockedaccount').then(
+      this.__callAPI("get", nodeUrl, "/node/unlockedaccount").then(
         (rawData: any) => {
           return resolve(rawData.unlockedAccount);
-        });
+        }
+      );
     });
   }
 }

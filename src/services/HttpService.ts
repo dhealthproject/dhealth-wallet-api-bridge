@@ -7,7 +7,7 @@
  * @license     LGPL-3.0
  */
 // external dependencies
-const axios = require('axios').default;
+const axios = require("axios").default;
 
 /**
  * Service that abstracts out calls to HTTP/JSON APIs.
@@ -15,29 +15,27 @@ const axios = require('axios').default;
  * @class {HttpService}
  */
 export abstract class HttpService {
-
   /**
    * Wraps a network node URL and fixes protocol
    * and port. Compatible with HTTPS coupled to
    * port 3001 (dHealth Testnet).
    *
-   * @param   {string}  nodeUrl 
+   * @param   {string}  nodeUrl
    * @returns {string}
    */
-  protected wrapURL(
-    nodeUrl: string
-  ): string {
+  protected wrapURL(nodeUrl: string): string {
     // fixes missing scheme
-    let fixedUrl = -1 === nodeUrl.indexOf('://') ? 'http://' + nodeUrl : nodeUrl;
+    let fixedUrl =
+      -1 === nodeUrl.indexOf("://") ? "http://" + nodeUrl : nodeUrl;
 
-    let port = '3000';
-    if (0 === nodeUrl.indexOf('https://')) {
-      port = '3001';
+    let port = "3000";
+    if (0 === nodeUrl.indexOf("https://")) {
+      port = "3001";
     }
 
     // fixes missing port
     fixedUrl = !fixedUrl.match(/https?:\/\/[^:]+:([0-9]+)\/?$/)
-      ? fixedUrl + ':' + port // default adds :3000 / https adds :3001
+      ? fixedUrl + ":" + port // default adds :3000 / https adds :3001
       : fixedUrl;
 
     return fixedUrl;
@@ -55,13 +53,11 @@ export abstract class HttpService {
     method: string,
     url: string,
     endpoint: string,
-    params: any = {},
+    params: any = {}
   ): Promise<any> {
     return new Promise((resolve) => {
-      const endpointUrl = this.wrapURL(url) + `/${endpoint.replace(/^\//, '')}`;
-      axios[method](endpointUrl, params).then(
-        (res) => resolve(res.data)
-      );
+      const endpointUrl = this.wrapURL(url) + `/${endpoint.replace(/^\//, "")}`;
+      axios[method](endpointUrl, params).then((res) => resolve(res.data));
     });
   }
 }

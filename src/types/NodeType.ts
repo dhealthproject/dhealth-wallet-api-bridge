@@ -17,27 +17,4 @@ export enum NodeType {
   VotingNode = 4,
   IPv4Node = 64,
   IPv6Node = 128,
-};
-
-/**
- * Helper method to get the node types from "roles" bitmask value.
- *
- * @param   {number}  roles 
- * @returns {NodeType[]}
- */
-export const getNodeTypesFromRoles = (roles: number): NodeType[] => {
-  const values = [
-    NodeType.PeerNode,
-    NodeType.ApiNode,
-    NodeType.VotingNode,
-  ];
-
-  let results = [];
-  for (let i = 0; i < 3; i++) {
-    if ((roles & values[i]) === values[i]) {
-      results.push(values[i]);
-    }
-  }
-
-  return results;
-};
+}

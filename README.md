@@ -22,7 +22,19 @@ Following modules are defined and exported with this library:
 | `RouteMeta` | Interface that describes meta data related to application routes. |
 | `PluginBridge` | Namespace that describes the necessary types for bridging processes between your component(s) and the wallet. This namespace includes type definitions for `PluginSetting`, `PluginPermission`, `PluginStorage` and for `Component`s definitions. |
 | `Transaction` | Enumeration that contains all Symbol transaction types (shim for SDK). |
-| `ChainService` | Repository implementation for HTTP calls to /node/ API routes. |
+| `ChainService` | Repository implementation for HTTP calls to /chain/ and /network/ API routes. |
+| `AccountService` | Repositoriy implementation for HTTP calls to /accounts/ API routes. |
+| `NodeService` | Repository implementation for HTTP calls to /node/ API routes. |
+
+### Helpers
+
+Following helpers are defined and exported with this library:
+
+| Helper | Description |
+| --- | --- |
+| `getAccountAddress()` | Helper function to generate a formatted address by public key. |
+| `getAccountBalance()` | Helper function to extract mosaic amounts. |
+| `getNodeVersion()` | Transformer for semantic versioning of a node's version field. |
 
 ## License
 

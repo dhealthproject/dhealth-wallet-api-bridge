@@ -28,26 +28,4 @@ export enum NetworkIdentifier {
    * @type {number}
    */
   PRIVATE_TEST = 0xa8,
-};
-
-/**
- * Returns a NetworkIdentifier value from its
- * string representation.
- *
- * @param   {string}  identifier    e.g. "public", "public-test"
- * @returns {NetworkIdentifier}
- */
-export const getIdentifierFromString = (identifier: string): NetworkIdentifier => {
-  if (identifier === 'public') {
-    return NetworkIdentifier.MAIN_NET;
-  }
-  else if (identifier === 'public-test') {
-    return NetworkIdentifier.TEST_NET;
-  }
-  else if (identifier === 'private') {
-    return NetworkIdentifier.PRIVATE;
-  }
-  else if (identifier === 'private-test') {
-    return NetworkIdentifier.PRIVATE_TEST;
-  }
 }

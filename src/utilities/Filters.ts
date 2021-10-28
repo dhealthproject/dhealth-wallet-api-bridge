@@ -14,10 +14,7 @@ export class Filters {
    * @param   {string}  allowed
    * @return  {string}
    */
-  public static stripTags(
-    inputStr: string,
-    allowed: string = "",
-  ): string {
+  public static stripTags(inputStr: string, allowed: string = ""): string {
     // making sure the allowed arg is a string containing only tags in lowercase (<a><b><c>)
     allowed = (
       ((allowed || "") + "").toLowerCase().match(/<[a-z][a-z0-9]*>/g) || []
@@ -52,7 +49,7 @@ export class Filters {
   }
 
   /**
-   * This method replaces all occurences of 
+   * This method replaces all occurences of
    *
    * @param   {string}  inputStr
    * @param   {string}  allowed
@@ -61,17 +58,17 @@ export class Filters {
   public static replaceBy(
     haystack: string,
     needles: string[],
-    replace: string = '',
+    replace: string = ""
   ): string {
-    let escaped = [];
-    needles.forEach(
-      n => escaped.push(n.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1"))
+    const escaped = [];
+    needles.forEach((n) =>
+      escaped.push(n.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1"))
     );
-    
+
     let result: string = haystack;
     while (escaped.length) {
       const needle = escaped.shift();
-      result = result.replace(new RegExp(needle, 'g'), replace);
+      result = result.replace(new RegExp(needle, "g"), replace);
     }
 
     return result;

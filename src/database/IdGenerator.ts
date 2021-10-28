@@ -23,7 +23,9 @@ export const DEFAULT_ID_LENGTH: number = 8;
  * @param   {number}  length
  * @returns {string}
  */
-export const RandomIdGenerator = (length: number = DEFAULT_ID_LENGTH): string => {
+export const RandomIdGenerator = (
+  length: number = DEFAULT_ID_LENGTH
+): string => {
   const id = randomBytes(length);
   return sha3_512(utf8ToHex(id)).substr(0, length);
 };
@@ -39,8 +41,8 @@ export const RandomIdGenerator = (length: number = DEFAULT_ID_LENGTH): string =>
  */
 export const DeterministicIdGenerator = (
   object: any,
-  iv?: string,
-): { seed: string, identifier: string } => {
+  iv?: string
+): { seed: string; identifier: string } => {
   const seed = !!iv ? iv : randomBytes(8);
   const raw = {
     seed,

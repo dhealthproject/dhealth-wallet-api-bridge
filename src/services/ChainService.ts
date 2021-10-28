@@ -7,16 +7,31 @@
  * @license     LGPL-3.0
  */
 // external dependencies
-const axios = require('axios').default;
+import {
+  BlockInfoDTO,
+  BlockInfoDTOFromJSON,
+  ChainInfoDTO,
+  ChainInfoDTOFromJSON,
+  NetworkConfigurationDTO,
+  NetworkConfigurationDTOFromJSON,
+} from "symbol-openapi-typescript-fetch-client";
 
 // internal dependencies
-import { HttpService } from './HttpService';
-import { BlockModel } from '../models/BlockModel';
-import { ChainModel } from '../models/ChainModel';
-import { NetworkModel } from '../models/NetworkModel';
+import { HttpService } from "./HttpService";
 
 /**
- * Chain service to handle remote calls 
+ * Mixin that combines chain, config and blocks information.
+ *
+ * @type {NetworkInfoMixin}
+ */
+export type NetworkInfoMixin = {
+  chain: ChainInfoDTO;
+  config: NetworkConfigurationDTO;
+  block: BlockInfoDTO;
+};
+
+/**
+ * Chain service to handle remote calls
  * @export
  * @class {ChainService}
  */
@@ -30,16 +45,13 @@ export class ChainService extends HttpService {
    * blockchain information using endpoint `/chain/info`.
    *
    * @param   {string}  nodeUrl     The URL of the node.
-   * @returns {Promise<NodeModel>}  Parsed JSON response as an object.
+   * @returns {Promise<ChainInfoDTO>}  Parsed JSON response as an object.
    */
-  public getChainInfo(
-    nodeUrl: string,
-  ): Promise<ChainModel> {
+  public getChainInfo(nodeUrl: string): Promise<ChainInfoDTO> {
     return new Promise((resolve) => {
-      this.__callAPI('get', nodeUrl, '/chain/info').then(
-        (rawInfo: any) => {
-          return resolve(ChainModel.fromDTO(rawInfo));
-        });
+      this.__callAPI("get", nodeUrl, "/chain/info").then((rawInfo: any) =>
+        resolve(ChainInfoDTOFromJSON(rawInfo))
+      );
     });
   }
 
@@ -48,16 +60,19 @@ export class ChainService extends HttpService {
    * network properties using endpoint `/network/properties`.
    *
    * @param   {string}  nodeUrl     The URL of the node.
-   * @returns {Promise<NodeModel>}  Parsed JSON response as an object.
+   * @returns {Promise<NetworkConfigurationDTO>}  Parsed JSON response as an object.
    */
-  public getNetworkProperties(
-    nodeUrl: string,
-  ): Promise<NetworkModel> {
+  public getNetworkConfiguration(
+    nodeUrl: string
+  ): Promise<NetworkConfigurationDTO> {
     return new Promise((resolve) => {
-      this.__callAPI('get', nodeUrl, '/network/properties').then(
-        (rawInfo: any) => {
-          return resolve(rawInfo);
-        });
+      this.__callAPI(
+        "get",
+        nodeUrl,
+        "/network/properties"
+      ).then((rawInfo: any) =>
+        resolve(NetworkConfigurationDTOFromJSON(rawInfo))
+      );
     });
   }
 
@@ -66,17 +81,16 @@ export class ChainService extends HttpService {
    * a block information using endpoint `/blocks/X`.
    *
    * @param   {string}  nodeUrl     The URL of the node.
-   * @returns {Promise<BlockModel>}  Parsed JSON response as an object.
+   * @returns {Promise<BlockInfoDTO>}  Parsed JSON response as an object.
    */
   public getBlockInfo(
     nodeUrl: string,
-    block: number,
-  ): Promise<BlockModel> {
+    block: string | number
+  ): Promise<BlockInfoDTO> {
     return new Promise((resolve) => {
-      this.__callAPI('get', nodeUrl, '/blocks/' + block).then(
-        (blockInfo: any) => {
-          return resolve(BlockModel.fromDTO(blockInfo));
-        });
+      this.__callAPI("get", nodeUrl, "/blocks/" + block).then((rawInfo: any) =>
+        resolve(BlockInfoDTOFromJSON(rawInfo))
+      );
     });
   }
 
@@ -88,23 +102,16 @@ export class ChainService extends HttpService {
    * @param   {string}  nodeUrl     The URL of the node.
    * @returns {Promise<NodeModel>}  Parsed JSON response as an object.
    */
-  public async getNetworkInfo(
-    nodeUrl: string,
-  ): Promise<{chain: ChainModel, network: NetworkModel}> {
-
+  public async getNetworkInfo(nodeUrl: string): Promise<NetworkInfoMixin> {
     // fetches information from network
     const chainInfo = await this.getChainInfo(nodeUrl);
-    const networkProps = await this.getNetworkProperties(nodeUrl);
+    const networkConfig = await this.getNetworkConfiguration(nodeUrl);
     const lastBlock = await this.getBlockInfo(nodeUrl, chainInfo.height);
-
-    // merges properties into models
-    const networkModel = NetworkModel.fromDTO(networkProps['network']);
-    chainInfo.addNetworkProperties(networkProps['chain']);
-    chainInfo.setLastBlock(lastBlock);
 
     return {
       chain: chainInfo,
-      network: networkModel,
-    }
+      config: networkConfig,
+      block: lastBlock,
+    };
   }
 }
